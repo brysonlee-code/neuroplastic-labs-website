@@ -439,6 +439,13 @@ img {
     border-top: 1px solid var(--glass-border);
     border-bottom: 1px solid var(--glass-border);
     background: var(--bg-section);
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.marquee:active {
+    cursor: grabbing;
 }
 
 .marquee__track {
@@ -451,6 +458,16 @@ img {
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.marquee:hover .marquee__track {
+    animation-play-state: paused;
+    color: var(--text-secondary);
+}
+
+.marquee.is-dragging .marquee__track {
+    animation: none;
 }
 
 .marquee__track span {

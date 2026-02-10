@@ -85,6 +85,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Draggable marquee ---
+    const marquee = document.querySelector('.marquee');
+    const marqueeTrack = document.querySelector('.marquee__track');
+
+    if (marquee && marqueeTrack) {
+        let isDragging = false;
+        let startX = 0;
+        let currentTranslate = 0;
+
+        const getTranslateX = () => {
+            const style = window.getComputedStyle(marqueeTrack);
+            const matrix = new DOMMatrix(style.transform);
+            return matrix.m41;
+        };
+
+        const onStart = (x) => {
+            isDragging = true;
+            startX = x;
+            currentTranslate = getTranslateX();
+            marquee.classList.add('is-dragging');
+            marqueeTrack.style.transform = `translateX(${currentTranslate}px)`;
+        };
+
+        const onMove = (x) => {
+            if (!isDragging) return;
+            const diff = x - startX;
+            marqueeTrack.style.transform = `translateX(${currentTranslate + diff}px)`;
+        };
+
+        const onEnd = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            marquee.classList.remove('is-dragging');
+            marqueeTrack.style.transform = '';
+        };
+
+        // Mouse events
+        marquee.addEventListener('mousedown', (e) => { e.preventDefault(); onStart(e.clientX); });
+        window.addEventListener('mousemove', (e) => onMove(e.clientX));
+        window.addEventListener('mouseup', onEnd);
+
+        // Touch events
+        marquee.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX), { passive: true });
+        window.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), { passive: true });
+        window.addEventListener('touchend', onEnd);
+    }
+
     // --- Parallax on hero background ---
     const heroBg = document.querySelector('.hero__bg');
 
