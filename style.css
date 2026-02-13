@@ -759,6 +759,198 @@ img {
     border: 1px solid rgba(212, 145, 90, 0.25);
 }
 
+/* --- Featured Product (Voice Air 2.0) --- */
+.featured-product {
+    position: relative;
+    margin-bottom: 60px;
+    border-radius: 28px;
+    overflow: hidden;
+}
+
+.featured-product__glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 30px;
+    background: var(--gradient-full);
+    opacity: 0.6;
+    z-index: 0;
+    animation: featuredGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes featuredGlow {
+    0% { opacity: 0.4; filter: blur(0px); }
+    50% { opacity: 0.7; filter: blur(2px); }
+    100% { opacity: 0.5; filter: blur(0px); }
+}
+
+.featured-product__inner {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(165deg, rgba(14, 14, 24, 0.97) 0%, rgba(10, 10, 18, 0.99) 100%);
+    border-radius: 28px;
+    padding: 56px;
+}
+
+.featured-product__badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    background: var(--gradient-full);
+    color: white;
+    margin-bottom: 40px;
+    animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(91, 134, 229, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(155, 89, 182, 0.5); }
+}
+
+.featured-product__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.featured-product__icon {
+    margin-bottom: 24px;
+}
+
+.featured-product__title {
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #ffffff 20%, var(--blue-light) 50%, var(--purple-light) 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.featured-product__subtitle {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+}
+
+.featured-product__headline {
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    font-style: italic;
+}
+
+.featured-product__desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.featured-product__desc:last-child {
+    margin-bottom: 0;
+}
+
+.featured-product__features {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.featured-product__feature {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.featured-product__feature-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.featured-product__feature strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.featured-product__feature span {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.featured-product__cta-block {
+    text-align: left;
+}
+
+.featured-product__cta {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    padding: 18px 40px;
+    box-shadow: 0 12px 40px rgba(91, 134, 229, 0.3), 0 4px 15px rgba(155, 89, 182, 0.2);
+    transition: all 0.4s ease;
+}
+
+.featured-product__cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 50px rgba(91, 134, 229, 0.4), 0 8px 25px rgba(155, 89, 182, 0.3);
+}
+
+.featured-product__cta-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* Featured Product Responsive */
+@media (max-width: 991px) {
+    .featured-product__layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .featured-product__inner {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .featured-product__inner {
+        padding: 28px;
+    }
+
+    .featured-product__headline br {
+        display: none;
+    }
+}
+
+@media (max-width: 479px) {
+    .featured-product__inner {
+        padding: 24px;
+    }
+
+    .featured-product__badge {
+        margin-bottom: 24px;
+    }
+}
+
 /* --- CTA / Contact --- */
 .cta {
     text-align: center;
