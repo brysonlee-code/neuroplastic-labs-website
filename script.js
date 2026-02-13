@@ -24,20 +24,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile menu ---
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    let savedScrollY = 0;
+    let menuBusy = false; // debounce guard
+
+    function openMenu() {
+        if (menuOpen || menuBusy) return;
+        menuBusy = true;
+        menuOpen = true;
+        savedScrollY = window.scrollY;
+        hamburger.classList.add('is-open');
+        mobileMenu.classList.add('is-open');
+        document.body.classList.add('menu-open');
+        document.body.style.top = `-${savedScrollY}px`;
+        setTimeout(() => { menuBusy = false; }, 450);
+    }
+
+    function closeMenu() {
+        if (!menuOpen || menuBusy) return;
+        menuBusy = true;
+        menuOpen = false;
+        hamburger.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+        document.body.style.top = '';
+        window.scrollTo(0, savedScrollY);
+        setTimeout(() => { menuBusy = false; }, 450);
+    }
 
     hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('is-open');
-        mobileMenu.classList.toggle('is-open');
-        document.body.style.overflow = mobileMenu.classList.contains('is-open') ? 'hidden' : '';
+        menuOpen ? closeMenu() : openMenu();
     });
 
-    // Close mobile menu on link click
+    // Close on link click
     document.querySelectorAll('.nav__mobile-link, .nav__mobile-cta').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('is-open');
-            mobileMenu.classList.remove('is-open');
-            document.body.style.overflow = '';
-        });
+        link.addEventListener('click', () => closeMenu());
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menuOpen) closeMenu();
+    });
+
+    // Close on backdrop tap (outside links)
+    mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) closeMenu();
     });
 
     // --- Scroll-triggered animations ---
